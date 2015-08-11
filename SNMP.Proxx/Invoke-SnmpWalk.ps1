@@ -66,6 +66,7 @@
 
 	)
 	Begin { 
+        [SnmpSharpNet.Oid]$RootOID = $null
 		if (!($Force)) { [SnmpSharpNet.Oid]$RootOID = $OID }
 
 		$SimpleSnmp = New-Object -TypeName SnmpSharpNet.SimpleSnmp
@@ -73,7 +74,7 @@
 		$SimpleSnmp.Retry = $Retry
 		$SimpleSnmp.PeerPort = $Port
 		$SimpleSnmp.Timeout = $TimeOut
-		
+		[SnmpSharpNet.SnmpVersion]$ver = [SnmpSharpNet.SnmpVersion]::Ver2
 		Switch($Version) {
 			1 {$Ver = [SnmpSharpNet.SnmpVersion]::Ver1 }
 			2 {$Ver = [SnmpSharpNet.SnmpVersion]::Ver2 }
@@ -108,7 +109,7 @@
 					} 
                     Else { $LastOID = $null } #end of MIB
 				} 
-                Else { Write-Error -Message "Error: OID returned Null $LastOID"; $LastOID = $null }
+                Else { Write-Warning -Message "OID returned Null $LastOID"; $LastOID = $null }
 			}
 		}
 	}

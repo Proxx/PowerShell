@@ -63,7 +63,7 @@
 		$SimpleSnmp.Retry = $Retry
 		$SimpleSnmp.PeerPort = $Port
 		$SimpleSnmp.Timeout = $TimeOut
-		
+		[SnmpSharpNet.SnmpVersion]$ver = [SnmpSharpNet.SnmpVersion]::Ver2
 		Switch($Version) {
 			1 {$Ver = [SnmpSharpNet.SnmpVersion]::Ver1 }
 			2 {$Ver = [SnmpSharpNet.SnmpVersion]::Ver2 }
@@ -86,7 +86,7 @@
 							})
 						}
 					}
-				} Else { "Error: $Node returned Null" }
+				} Else { Write-Warning -Message "$Node returned Null" }
 			}
 		}
 	}
