@@ -60,7 +60,9 @@
 		$Cols = New-Object -TypeName System.Text.StringBuilder 
 		$dtExclude = @("RowError", "RowState", "Table",	"ItemArray", "HasErrors")
 		$First = $true
-		if ((Read-SQLite -Connection $conn -Query "select name from sqlite_master WHERE type = 'table' AND name = '$name'").Name) { $Exists = $true }
+       [Boolean] $Exists = $False
+		if ((Read-SQLite -Connection $Connection -Query "select name from sqlite_master WHERE type = 'table' AND name = '$name'").Name) { [Boolean] $Exists = $true }
+
 	}
 	Process {
 		ForEach($Object in $InputObject) {
